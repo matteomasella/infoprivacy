@@ -1,42 +1,163 @@
 <!doctype html>
 <html lang="it">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Modulo Consenso - Lactalis / All4U</title>
-  <style>
-    body{font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; max-width:760px; margin:24px auto; padding:12px;}
-    label{display:block;margin:8px 0;}
-    fieldset{margin:12px 0;padding:10px;}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Modulo Consenso — Convention (Superstudio Maxi)</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --2emme-ottanio: #004D54;
+  --2emme-ottanio-900: #022E2F;
+  --2emme-magenta: #DB4F61;
+  --2emme-accent-teal: #54C4A6;
+  --2emme-carta: #BFEBFF;
+  --bg-gradient: linear-gradient(180deg, var(--2emme-ottanio), var(--2emme-ottanio-900));
+  --surface: rgba(255,255,255,0.04);
+  --card-border: rgba(255,255,255,0.08);
+  --text-main: #FFFFFF;
+  --text-muted: rgba(255,255,255,0.9);
+  --cta-bg: var(--2emme-magenta);
+  --cta-color: #FFFFFF;
+  --accent-bg: var(--2emme-accent-teal);
+  --font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --radius: 12px;
+  --max-width: 1200px;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg-gradient);font-family:var(--font-family);color:var(--text-main);-webkit-font-smoothing:antialiased}
+a{color:var(--cta-color);text-decoration:none}
+.wrapper{max-width:var(--max-width);margin:18px auto;padding:16px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand .logos{display:flex;align-items:center;gap:12px}
+.brand img{height:56px;display:block}
+.brand h1{margin:0;font-size:1.25rem;font-weight:700}
+.tagline{font-size:0.9rem;color:var(--text-muted)}
+main{margin-top:18px}
+@media (max-width:1000px){ .brand img{height:44px} }
+.card{background:var(--surface);border:1px solid var(--card-border);padding:16px;border-radius:var(--radius);box-shadow:0 8px 30px rgba(0,0,0,0.25)}
+h2{margin:0 0 10px 0;color:var(--text-main)}
+p, ul, li{color:var(--text-muted);line-height:1.35}
+.btn{display:inline-block;padding:8px 12px;border-radius:10px;background:var(--cta-bg);color:var(--cta-color);font-weight:700;border:none;cursor:pointer;font-size:0.9rem;}
+.btn-ghost{background:transparent;border:2px solid rgba(255,255,255,0.06);color:var(--text-muted);padding:8px 10px;border-radius:10px}
+/* Stili per i form (da info7.html) */
+label{display:block;font-weight:700;margin:10px 0 6px}
+select, input[type="text"], input[type="email"], input[type="number"] {
+  width:100%;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.08);
+  background:transparent;
+  color:var(--text-main);
+  font-family:var(--font-family);
+  font-size:1rem;
+}
+.result{margin-top:10px;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);font-weight:700;color:var(--text-muted)}
+footer{margin-top:18px;text-align:center;color:rgba(255,255,255,0.6);font-size:0.9rem}
+
+/* --- Stili aggiunti per il modulo consenso --- */
+fieldset{
+  margin: 16px 0;
+  padding: 12px 16px;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+}
+legend{
+  font-weight: 700;
+  color: var(--2emme-accent-teal); /* Colore accentato */
+  padding: 0 6px;
+  margin-left: 4px;
+}
+/* Sovrascrivo per i checkbox per non farli 100% width */
+label input[type="checkbox"] {
+  width: auto;
+  margin-right: 10px;
+  accent-color: var(--2emme-accent-teal); /* Rende la spunta colorata */
+  vertical-align: middle;
+  transform: scale(1.1);
+}
+/* Rendo il testo della label del checkbox non-grassetto, più leggibile */
+label:has(input[type="checkbox"]) {
+  font-weight: 400;
+  margin: 10px 0;
+  color: var(--text-muted);
+}
+/* --- Fine stili aggiunti --- */
+</style>
 </head>
 <body>
-  <h1>Modulo Consenso — Lactalis / All4U</h1>
 
-  <form id="consensoForm">
-    <label>Nome: <input name="nome" required></label>
-    <label>Cognome: <input name="cognome" required></label>
-    <label>Email: <input name="email" type="email" required></label>
-    <label>Hotel (se presente): <input name="hotel"></label>
-    <label>Allergie / Note: <input name="allergie"></label>
+  <div class="wrapper" role="main">
+    <header>
+      <div class="brand" aria-hidden="false">
+        <div class="logos">
+          <img src="all4u_logo.png" alt="All4U logo" />
+          <img src="lactalis_logo.png" alt="Lactalis logo" />
+        </div>
+        <div>
+          <h1>Modulo Consenso — Convention</h1>
+          <div class="tagline">Accreditamento e gestione privacy</div>
+        </div>
+      </div>
 
-    <fieldset>
-      <legend>Consensi (spuntare le caselle)</legend>
-      <label><input type="checkbox" name="consenso_accreditamento" value="SI" required> Accreditamento e gestione partecipazione (obbligatorio per entrare)</label>
-      <label><input type="checkbox" name="consenso_foto" value="SI"> Foto / Video per finalità promozionali (facoltativo)</label>
-      <label><input type="checkbox" name="consenso_marketing" value="SI"> Comunicazioni commerciali (facoltativo)</label>
-      <label><input type="checkbox" name="consenso_partner" value="SI"> Condivisione con partner (hotel / catering) (facoltativo)</label>
-    </fieldset>
+      <div style="text-align:right">
+        <div style="color:var(--text-muted);font-size:0.9rem">Contatti organizzazione</div>
+        <div style="font-weight:700;margin-top:6px">organizzazione.eventi@all4usrl.com</div>
+        <div style="font-weight:700;margin-top:6px">+39&nbsp;350&nbsp;827&nbsp;1415</div>
+      </div>
+    </header>
 
-    <input type="hidden" name="informativa_version" value="INFORMATIVA_V1">
+    <main>
+      <div class="card">
+        <h2>Modulo Consenso — Lactalis / All4U</h2>
+        <p style="color:var(--text-muted); line-height:1.35; font-size: 0.9rem;">Compila i campi seguenti per confermare la tua partecipazione e gestire i consensi privacy.</p>
+        
+        <form id="consensoForm" style="margin-top:16px;">
+          <label for="nome">Nome:</label>
+          <input id="nome" name="nome" required>
+          
+          <label for="cognome">Cognome:</label>
+          <input id="cognome" name="cognome" required>
+          
+          <label for="email">Email:</label>
+          <input id="email" name="email" type="email" required>
+          
+          <label for="hotel">Hotel (se presente):</label>
+          <input id="hotel" name="hotel" placeholder="Es. Crowne Plaza, Belstay, ...">
+          
+          <label for="allergie">Allergie / Note alimentari:</label>
+          <input id="allergie" name="allergie" placeholder="Nessuna">
 
-    <button type="submit">Invia Consenso</button>
-  </form>
+          <fieldset>
+            <legend>Consensi (spuntare le caselle)</legend>
+            <label><input type="checkbox" name="consenso_accreditamento" value="SI" required> Accreditamento e gestione partecipazione (obbligatorio per entrare)</label>
+            <label><input type="checkbox" name="consenso_foto" value="SI"> Foto / Video per finalità promozionali (facoltativo)</label>
+            <label><input type="checkbox" name="consenso_marketing" value="SI"> Comunicazioni commerciali (facoltativo)</label>
+            <label><input type="checkbox" name="consenso_partner" value="SI"> Condivisione con partner (hotel / catering) (facoltativo)</label>
+          </fieldset>
 
-  <div id="msg" style="margin-top:16px"></div>
+          <input type="hidden" name="informativa_version" value="INFORMATIVA_V1">
+
+          <div style="display:flex; align-items:center; gap:16px; margin-top:16px;">
+            <button type="submit" class="btn">Invia Consenso</button>
+            
+            <div id="msg" class="result" style="display:none; margin:0; flex-grow:1;"></div>
+          </div>
+        </form>
+
+      </div>
+    </main>
+
+    <footer>
+      <div>© All4U S.r.l. & Lactalis — Gestione consensi per evento — Superstudio Maxi</div>
+      <div style="margin-top:6px">Aggiornamenti pubblicati su: WhatsApp community · Email organizzazione · Bacheche hotel</div>
+    </footer>
+  </div>
+
 
   <script>
-    const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbxmpG6ZIjMzAIvaaNHe4aXJRidrkT1LBr0mrk-X74bBBGQAPQrpZFtB18G08cBb8sMh-Q/exec'; // <- sostituisci qui
+    const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbxmpG6ZIjMzAIvaaNHe4aXJRidrkT1LBr0mrk-X74bBBGQAPQrpZFtB18G08cBb8sMh-Q/exec'; // <- URL CORRETTO
 
     async function getPublicIP(){
       try {
@@ -50,6 +171,16 @@
 
     document.getElementById('consensoForm').addEventListener('submit', async (e) => {
       e.preventDefault();
+      
+      const msgEl = document.getElementById('msg');
+      const btnEl = e.target.querySelector('button[type="submit"]');
+      
+      // Nascondi messaggio e disabilita pulsante
+      msgEl.style.display = 'none';
+      msgEl.style.color = 'var(--text-muted)';
+      btnEl.disabled = true;
+      btnEl.innerText = 'Invio in corso...';
+
       const fd = new FormData(e.target);
       const data = Object.fromEntries(fd.entries());
 
@@ -72,14 +203,26 @@
           body: JSON.stringify(data)
         });
         const json = await res.json();
+        
+        msgEl.style.display = 'block'; // Mostra box messaggio
+        
         if (json.status === 'ok') {
-          document.getElementById('msg').innerText = 'Consenso inviato correttamente. Grazie.';
+          msgEl.innerText = 'Consenso inviato correttamente. Grazie.';
+          msgEl.style.color = 'var(--2emme-accent-teal)'; // Colore successo
           e.target.reset();
+          btnEl.innerText = 'Inviato!';
         } else {
-          document.getElementById('msg').innerText = 'Errore invio: ' + (json.error || JSON.stringify(json));
+          msgEl.innerText = 'Errore invio: ' + (json.error || JSON.stringify(json));
+          msgEl.style.color = 'var(--2emme-magenta)'; // Colore errore
+          btnEl.disabled = false;
+          btnEl.innerText = 'Riprova invio';
         }
       } catch (err) {
-        document.getElementById('msg').innerText = 'Errore di rete/invio: ' + err.message;
+        msgEl.style.display = 'block'; // Mostra box messaggio
+        msgEl.style.color = 'var(--2emme-magenta)'; // Colore errore
+        msgEl.innerText = 'Errore di rete/invio: ' + err.message;
+        btnEl.disabled = false;
+        btnEl.innerText = 'Riprova invio';
       }
     });
   </script>
