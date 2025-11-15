@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Modulo Consenso privacy — Convention Lactalis 2025 </title>
+<title>Modulo Consenso — Convention (Superstudio Maxi)</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -113,7 +113,8 @@ label:has(input[type="checkbox"]) {
         <h2>Modulo Consenso — Lactalis / All4U</h2>
         <p style="color:var(--text-muted); line-height:1.35; font-size: 0.9rem;">Compila i campi seguenti per confermare la tua partecipazione e gestire i consensi privacy.</p>
         
-        <form id="consensoForm" style="margin-top:16px;">
+        <form name="consenso" data-netlify="true" style="margin-top:16px;">
+        
           <label for="nome">Nome:</label>
           <input id="nome" name="nome" required>
           
@@ -142,8 +143,7 @@ label:has(input[type="checkbox"]) {
           <div style="display:flex; align-items:center; gap:16px; margin-top:16px;">
             <button type="submit" class="btn">Invia Consenso</button>
             
-            <div id="msg" class="result" style="display:none; margin:0; flex-grow:1;"></div>
-          </div>
+            </div>
         </form>
 
       </div>
@@ -155,76 +155,5 @@ label:has(input[type="checkbox"]) {
     </footer>
   </div>
 
-
-  <script>
-    const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzz-pk32cHOrmUHB6SEWCw47_PKa89OqkhUDuG73WY93LFi_YNHEFJAh-8HrKD2K9MO0A/exec'; // <- URL CORRETTO
-
-    async function getPublicIP(){
-      try {
-        const r = await fetch('https://api.ipify.org?format=json');
-        const j = await r.json();
-        return j.ip || '';
-      } catch(e) {
-        return '';
-      }
-    }
-
-    document.getElementById('consensoForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const msgEl = document.getElementById('msg');
-      const btnEl = e.target.querySelector('button[type="submit"]');
-      
-      // Nascondi messaggio e disabilita pulsante
-      msgEl.style.display = 'none';
-      msgEl.style.color = 'var(--text-muted)';
-      btnEl.disabled = true;
-      btnEl.innerText = 'Invio in corso...';
-
-      const fd = new FormData(e.target);
-      const data = Object.fromEntries(fd.entries());
-
-      // Normalizza checkbox booleani: se mancanti => ''
-      data.consenso_accreditamento = data.consenso_accreditamento || '';
-      data.consenso_foto = data.consenso_foto || '';
-      data.consenso_marketing = data.consenso_marketing || '';
-      data.consenso_partner = data.consenso_partner || '';
-
-      // Aggiungi timestamp, userAgent, IP
-      data.timestamp = new Date().toISOString();
-      data.userAgent = navigator.userAgent || '';
-      data.ip = await getPublicIP(); // richiama api.ipify
-
-      // invia in POST JSON al WebApp
-      try {
-        const res = await fetch(WEBAPP_URL, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(data)
-        });
-        const json = await res.json();
-        
-        msgEl.style.display = 'block'; // Mostra box messaggio
-        
-        if (json.status === 'ok') {
-          msgEl.innerText = 'Consenso inviato correttamente. Grazie.';
-          msgEl.style.color = 'var(--2emme-accent-teal)'; // Colore successo
-          e.target.reset();
-          btnEl.innerText = 'Inviato!';
-        } else {
-          msgEl.innerText = 'Errore invio: ' + (json.error || JSON.stringify(json));
-          msgEl.style.color = 'var(--2emme-magenta)'; // Colore errore
-          btnEl.disabled = false;
-          btnEl.innerText = 'Riprova invio';
-        }
-      } catch (err) {
-        msgEl.style.display = 'block'; // Mostra box messaggio
-        msgEl.style.color = 'var(--2emme-magenta)'; // Colore errore
-        msgEl.innerText = 'Errore di rete/invio: ' + err.message;
-        btnEl.disabled = false;
-        btnEl.innerText = 'Riprova invio';
-      }
-    });
-  </script>
-</body>
+  </body>
 </html>
